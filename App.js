@@ -12,6 +12,9 @@ const ChatEngine = ChatEngineCore.create({
   subscribeKey: "sub-c-e3f6d3fe-934e-11e7-a7b2-42d877d8495e"
 });
 
+const now = new Date().getTime();
+const username = ['user', now].join('-');
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +22,7 @@ export default class App extends React.Component {
     this.state = {
       chat: null,
       renderChat: false,
+      me: null, 
     };
   }
 
@@ -26,20 +30,22 @@ export default class App extends React.Component {
     //chatengine throws some warning about timing that is a part of the library itself
     console.disableYellowBox = true;
 
-    ChatEngine.connect("bob", {
+    ChatEngine.connect("user-1506449048908", {
       // email: new Date()
     });
 
     ChatEngine.on("$.ready", data => {
       const me = data.me;
 
+      console.log(me);
+
       me.plugin(ChatEngineGravatar());
 
       console.log("Chat Engine ready");
 
-      let chat = new ChatEngine.Chat('tutorial-chat');
+      let chat = new ChatEngine.Chat('test10');
 
-      this.setState({chat: chat, renderChat: true});
+      this.setState({chat: chat, renderChat: true, me: data.me});
 
       // ChatEngine.global.on("message", payload => {
       //   console.log(payload);
@@ -56,7 +62,7 @@ export default class App extends React.Component {
           <View style={{flex:1}}>
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
             {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-            <MessageList chat={this.state.chat}/>      
+            <MessageList chat={this.state.chat} me={this.state.me}/>      
             <MessageEntry chat={this.state.chat}/>
           </View>
         )}

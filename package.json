@@ -6,9 +6,16 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
+    "chat-engine": "^0.4.2",
     "expo": "^21.0.0",
     "react": "16.0.0-alpha.12",
     "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
-    "react-native-elements": "^0.17.0"
+    "react-native-elements": "^0.17.0",
+    "react-native-htmlview": "^0.12.0",
+    "chat-engine-gravatar": "0.0.5",
+    "chat-engine-markdown": "0.0.5",
+    "chat-engine-online-user-search": "0.0.5",
+    "chat-engine-typing-indicator": "0.0.6",
+    "lodash": "^4.17.4"
   }
 }

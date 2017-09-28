@@ -12,21 +12,21 @@ class TypingIndicator extends Component {
   }
 
   componentDidMount(){
-    this.props.chat.on('$typingIndicator.startTyping', (payload) => {
-      console.log(payload);
-      this.setState({isTyping:true, userTyping: payload.sender.uuid })
-    });
+    // this.props.chat.on('$typingIndicator.startTyping', (payload) => {
+    //   console.log(payload);
+    //   this.setState({isTyping:true, userTyping: payload.sender.uuid })
+    // });
 
-    this.props.chat.on('$typingIndicator.stopTyping', (payload) => {
-      this.setState({isTyping:false});
-    });
+    // this.props.chat.on('$typingIndicator.stopTyping', (payload) => {
+    //   this.setState({isTyping:false});
+    // });
   }
 
-  renderTypingIndicator(){
-    if(this.state.isTyping){
-      return (<View><Text> {this.state.userTyping} is typing... </Text></View>);
-    } 
-  }
+  // renderTypingIndicator(){
+  //   if(this.state.isTyping){
+  //     return (<View><Text> {this.state.userTyping} is typing... </Text></View>);
+  //   } 
+  // }
 
   render() {
     return (

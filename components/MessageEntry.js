@@ -9,9 +9,9 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-import ChatEngineTypingIndicator from "chat-engine-typing-indicator";
+// import ChatEngineTypingIndicator from "chat-engine-typing-indicator";
 
-import TypingIndicator from './TypingIndicator';
+// import TypingIndicator from './TypingIndicator';
 
 import { Icon } from 'react-native-elements';
 
@@ -25,9 +25,7 @@ class MessageEntry extends Component {
   }
 
   componentDidMount(){
-    if(this.props.typingIndicator){
-      this.props.chat.plugin(ChatEngineTypingIndicator({ timeout: 5000 }));
-    }
+      // this.props.chat.plugin(ChatEngineTypingIndicator({ timeout: 5000 }));
   }
 
   sendChat() {
@@ -42,19 +40,17 @@ class MessageEntry extends Component {
   setChatInput(value) {
     this.setState({ chatInput: value });
 
-    if(this.props.typingIndicator){
-      if(value !== ""){
-        this.props.chat.typingIndicator.startTyping();
-      }else{
-        this.props.chat.typingIndicator.stopTyping();
-      }
-    }
+    // if(value !== ""){
+    //   this.props.chat.typingIndicator.startTyping();
+    // }else{
+    //   this.props.chat.typingIndicator.stopTyping();
+    // }
   }
-
+  
+  // <TypingIndicator chat={this.props.chat} />
   render() {
     return (
       <KeyboardAvoidingView behavior="padding">
-          <TypingIndicator chat={this.props.chat} />
           <View style={styles.footer}>
             <TextInput
               value={this.state.chatInput}

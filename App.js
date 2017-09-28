@@ -7,7 +7,7 @@ import ChatEngineMarkdown from "chat-engine-markdown";
 
 import MessageEntry from './components/MessageEntry';
 import MessageList from './components/MessageList';
-import TypingIndicator from './components/TypingIndicator';
+
 
 const ChatEngine = ChatEngineCore.create({
   publishKey: "pub-c-0fb6e2c9-c3fa-4dbc-9c8d-86a3813c73c8",
@@ -45,7 +45,7 @@ export default class App extends React.Component {
 
       console.log("Chat Engine ready");
 
-      let chat = new ChatEngine.Chat('test101');
+      let chat = new ChatEngine.Chat('test');
 
       // chat.plugin(ChatEngineMarkdown({}));      
 
@@ -67,7 +67,7 @@ export default class App extends React.Component {
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
             {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
             <MessageList chat={this.state.chat} me={this.state.me}/>    
-            <MessageEntry chat={this.state.chat} typingIndicator />
+            <MessageEntry chat={this.state.chat} />
           </View>
         )}
       </View>

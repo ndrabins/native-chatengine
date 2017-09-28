@@ -12,12 +12,37 @@ import HTMLView from "react-native-htmlview";
 const Message = props => {
   //if the user is "me" render right, if not render left
 
-  if (props.message.sender === props.me) {
+  if (props.message.sender.uuid === props.me.uuid) {
     //return users own messages with different styling
     return (
       <View style={styles.myMessageContainer}>
         <View style={styles.myMessages}>
           <HTMLView value={`<p> ${props.message.data.text} </p>`} stylesheet={styles} />
+        </View>
+      </View>
+    );
+  }
+
+  //this is to handle the case that history returns a user object instead of a string for the uuid
+  if(props.message.sender.uuid){
+    return (
+      <View style={styles.messageContainer}>
+        <View style={styles.avatar}>
+          <Avatar
+            small
+            rounded
+            source={{
+              uri:
+                "https://vignette2.wikia.nocookie.net/starwars/images/0/02/Jar_Jar_SWSB.png/revision/latest?cb=20160910034613"
+            }}
+            activeOpacity={0.7}
+          />
+        </View>
+        <View style={{ flexDirection: "column"}}>
+          <Text style={styles.messageUID}>{props.message.sender.uuid}</Text>
+          <View style={styles.recievedMessages}>
+            <HTMLView value={props.message.data.text} stylesheet={styles} />
+          </View>
         </View>
       </View>
     );

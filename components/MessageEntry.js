@@ -9,6 +9,10 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
+import ChatEngineTypingIndicator from "chat-engine-typing-indicator";
+
+import TypingIndicator from './TypingIndicator';
+
 import { Icon } from 'react-native-elements';
 
 class MessageEntry extends Component {
@@ -20,29 +24,51 @@ class MessageEntry extends Component {
     };
   }
 
-  sendChat() { 
-    this.props.chat.emit('message', {
-      text: this.state.chatInput
-    });
-    this.setState({ chatInput: "" });
+  componentDidMount(){
+    if(this.props.typingIndicator){
+      this.props.chat.plugin(ChatEngineTypingIndicator({ timeout: 5000 }));
+    }
+  }
+
+  sendChat() {
+    if (this.state.chatInput) {
+      this.props.chat.emit('message', {
+        text: this.state.chatInput
+      });
+      this.setState({ chatInput: "" });
+    }
+  }
+
+  setChatInput(value) {
+    this.setState({ chatInput: value });
+
+    if(this.props.typingIndicator){
+      if(value !== ""){
+        this.props.chat.typingIndicator.startTyping();
+      }else{
+        this.props.chat.typingIndicator.stopTyping();
+      }
+    }
   }
 
   render() {
     return (
       <KeyboardAvoidingView behavior="padding">
+          <TypingIndicator chat={this.props.chat} />
           <View style={styles.footer}>
             <TextInput
               value={this.state.chatInput}
               style={styles.input}
               underlineColorAndroid="transparent"
               placeholder="Send Message"
-              onChangeText={text => this.setState({chatInput: text})}
+              onChangeText={text => this.setChatInput(text)}
             />
-            <TouchableOpacity>
+            <TouchableOpacity style={{backgroundColor:'#D02129'}}>
               <Icon
+                reverse
                 name="send"
                 size={26}
-                color="#20b2aa"
+                color="#D02129"
                 style={styles.send}
                 onPress={() => {
                   this.sendChat();

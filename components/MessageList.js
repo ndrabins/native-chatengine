@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, Text, Avatar } from "react-native-elements";
+import { Header,Text, Avatar } from "react-native-elements";
 import { StyleSheet, View, ScrollView, FlatList } from "react-native";
 
 import ChatEngineGravatar from "chat-engine-gravatar";
@@ -17,12 +17,13 @@ const Message = props => {
     return (
       <View style={styles.myMessageContainer}>
         <View style={styles.myMessages}>
-          <HTMLView value={props.message.data.text} stylesheet={styles} />
+          <HTMLView value={`<p> ${props.message.data.text} </p>`} stylesheet={styles} />
         </View>
       </View>
     );
   }
 
+  //messages that aren't from me
   return (
     <View style={styles.messageContainer}>
       <View style={styles.avatar}>
@@ -55,9 +56,9 @@ class MessageList extends Component {
     };
   }
 
-  componentDidMount() {
-    // this.props.chat.plugin(ChatEngineMarkdown({}));
+  _keyExtractor = (item, index) => index;
 
+  componentDidMount() {
     console.log("Mounting MessageList");
     this.props.chat.on("message", payload => {
       this.setState({ messages: [...this.state.messages, payload] });
@@ -66,8 +67,8 @@ class MessageList extends Component {
     });
 
     this.props.chat.on("$.history.message", payload => {
-      this.setState({ messages: [...this.state.messages, payload] });
       console.log("old message", payload);
+      this.setState({ messages: [...this.state.messages, payload] });
     });
 
     this.props.chat.history("message");
@@ -79,6 +80,7 @@ class MessageList extends Component {
         ref={el => (this.flatList = el)}
         data={this.state.messages}
         extraData={this.state}
+        keyExtractor={this._keyExtractor}
         renderItem={({ item }) => <Message message={item} me={this.props.me} />}
       />
     );
@@ -96,11 +98,12 @@ const styles = StyleSheet.create({
     minHeight: 30,
     justifyContent: "center",
     marginBottom: 3,
-    padding: 5
+    padding: 5,
+    alignItems:'flex-start',
   },
   myMessages: {
     borderRadius: 15,
-    backgroundColor: "#0084ff",
+    backgroundColor: "#D02129",
     marginLeft: 60,
     minHeight: 30,
     justifyContent: "center",
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
   },
 
   //this is for styling HTMLview
-  styledText: {
+  p: {
     color:'#FFFFFF'
   }
 });

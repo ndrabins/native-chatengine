@@ -3,9 +3,11 @@ import { StyleSheet, Text, View, Platform, StatusBar } from "react-native";
 
 import ChatEngineCore from "chat-engine";
 import ChatEngineGravatar from 'chat-engine-gravatar'
+import ChatEngineMarkdown from "chat-engine-markdown";
 
 import MessageEntry from './components/MessageEntry';
 import MessageList from './components/MessageList';
+import TypingIndicator from './components/TypingIndicator';
 
 const ChatEngine = ChatEngineCore.create({
   publishKey: "pub-c-0fb6e2c9-c3fa-4dbc-9c8d-86a3813c73c8",
@@ -30,7 +32,7 @@ export default class App extends React.Component {
     //chatengine throws some warning about timing that is a part of the library itself
     console.disableYellowBox = true;
 
-    ChatEngine.connect("user-1506449048908", {
+    ChatEngine.connect(username, {
       // email: new Date()
     });
 
@@ -43,7 +45,9 @@ export default class App extends React.Component {
 
       console.log("Chat Engine ready");
 
-      let chat = new ChatEngine.Chat('test10');
+      let chat = new ChatEngine.Chat('test101');
+
+      // chat.plugin(ChatEngineMarkdown({}));      
 
       this.setState({chat: chat, renderChat: true, me: data.me});
 
@@ -62,8 +66,8 @@ export default class App extends React.Component {
           <View style={{flex:1}}>
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
             {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-            <MessageList chat={this.state.chat} me={this.state.me}/>      
-            <MessageEntry chat={this.state.chat}/>
+            <MessageList chat={this.state.chat} me={this.state.me}/>    
+            <MessageEntry chat={this.state.chat} typingIndicator />
           </View>
         )}
       </View>

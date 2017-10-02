@@ -162,25 +162,3 @@ const styles = StyleSheet.create({
 });
 
 export default MessageList;
-
-// <ScrollView
-// scrollEnabled={this.state.isScrollActive}
-//   onLayout={() => {
-//     this.scrollView.scrollToEnd({animated: true});
-//   }}
-//   onContentSizeChange={() => {
-//     this.scrollView.scrollToEnd({animated: false});
-//   }}
-//   onScroll={(e) => {
-//     if (e.nativeEvent.contentSize.height < e.nativeEvent.layoutMeasurement.height) {
-//       this.setState({
-//         isScrollActive: false
-//     }, () => this.scrollView.scrollToEnd({animated: false}));
-//   } else {
-//     this.setState({
-//       isScrollActive: true
-//   });
-//   }
-// }}
-// ref={scrollView => this.scrollView = scrollView}
-// >

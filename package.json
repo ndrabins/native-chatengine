@@ -11,7 +11,7 @@
     "chat-engine-markdown": "0.0.7",
     "chat-engine-online-user-search": "0.0.7",
     "chat-engine-typing-indicator": "0.0.8",
-    "expo": "^21.0.0",
+    "expo": "^21.0.2",
     "lodash": "^4.17.4",
     "react": "16.0.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",

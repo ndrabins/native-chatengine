@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Platform, StatusBar } from "react-native";
 import ChatEngineCore from "chat-engine";
 import ChatEngineGravatar from 'chat-engine-gravatar'
 import ChatEngineMarkdown from "chat-engine-markdown";
-import ChatEngineTypingIndicator from "chat-engine-typing-indicator";
+import typingIndicator from "chat-engine-typing-indicator";
 
 import MessageEntry from './components/MessageEntry';
 import MessageList from './components/MessageList';
@@ -39,15 +39,14 @@ export default class App extends React.Component {
 
     ChatEngine.on("$.ready", data => {
       const me = data.me;
-      console.log(me);
 
       me.plugin(ChatEngineGravatar());
 
       console.log("Chat Engine ready");
 
-      let chat = new ChatEngine.Chat('test');
-      chat.plugin(ChatEngineTypingIndicator({ timeout: 5000 })); 
-
+      let chat = new ChatEngine.Chat('completelyNew');
+      chat.plugin(typingIndicator({timeout:5000})); 
+      
       this.setState({chat: chat, renderChat: true, me: data.me});
 
       // ChatEngine.global.on("message", payload => {

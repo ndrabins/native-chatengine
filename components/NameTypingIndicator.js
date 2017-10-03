@@ -13,7 +13,6 @@ class NameTypingIndicator extends Component {
 
   componentDidMount(){
     this.props.chat.on('$typingIndicator.startTyping', (payload) => {
-      console.log(payload);
       this.setState({isTyping:true, userTyping: payload.sender.uuid })
     });
 

@@ -10,7 +10,7 @@
     "chat-engine-gravatar": "0.0.7",
     "chat-engine-markdown": "0.0.7",
     "chat-engine-online-user-search": "0.0.7",
-    "chat-engine-react-native": "0.0.2",
+    "chat-engine-react-native": "0.0.4",
     "chat-engine-typing-indicator": "0.0.8",
     "expo": "^21.0.2",
     "lodash": "^4.17.4",

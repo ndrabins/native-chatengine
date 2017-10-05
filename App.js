@@ -2,13 +2,16 @@ import React from "react";
 import { StyleSheet, Text, View, Platform, StatusBar } from "react-native";
 
 import ChatEngineCore from "chat-engine";
-import ChatEngineGravatar from 'chat-engine-gravatar'
+import ChatEngineGravatar from "chat-engine-gravatar";
 import ChatEngineMarkdown from "chat-engine-markdown";
 import typingIndicator from "chat-engine-typing-indicator";
 
-import MessageEntry from './components/MessageEntry';
-import MessageList from './components/MessageList';
+import MessageEntry from "./components/MessageEntry";
+import MessageList from "./components/MessageList";
+import UserList from "./components/UserList";
 
+// import {MessageEntry} from "chat-engine-react-native";
+// import {MessageList} from "chat-engine-react-native";
 
 const ChatEngine = ChatEngineCore.create({
   publishKey: "pub-c-0fb6e2c9-c3fa-4dbc-9c8d-86a3813c73c8",
@@ -16,7 +19,7 @@ const ChatEngine = ChatEngineCore.create({
 });
 
 const now = new Date().getTime();
-const username = ['user', now].join('-');
+const username = ["user", now].join("-");
 
 export default class App extends React.Component {
   constructor(props) {
@@ -25,7 +28,8 @@ export default class App extends React.Component {
     this.state = {
       chat: null,
       renderChat: false,
-      me: null, 
+      me: null,
+      globalChat: null
     };
   }
 
@@ -44,10 +48,10 @@ export default class App extends React.Component {
 
       console.log("Chat Engine ready");
 
-      let chat = new ChatEngine.Chat('completelyNew');
-      chat.plugin(typingIndicator({timeout:5000})); 
-      
-      this.setState({chat: chat, renderChat: true, me: data.me});
+      let chat = new ChatEngine.Chat("completelyNew");
+      chat.plugin(typingIndicator({ timeout: 5000 }));
+
+      this.setState({ chat: chat, renderChat: true, me: data.me, globalChat: ChatEngine.global});
 
       // ChatEngine.global.on("message", payload => {
       //   console.log(payload);
@@ -59,13 +63,16 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         {!this.state.renderChat ? (
-          <Text> Loading </Text>  
+          <Text> Loading </Text>
         ) : (
-          <View style={{flex:1}}>
-            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-            <MessageList chat={this.state.chat} me={this.state.me}/>    
-            <MessageEntry chat={this.state.chat} />
+          <View style={{ flex: 1 }}>
+            {Platform.OS === "ios" && <StatusBar barStyle="default" />}
+            {Platform.OS === "android" && (
+              <View style={styles.statusBarUnderlay} />
+            )}
+            {/* <MessageList chat={this.state.chat} me={this.state.me}/>    
+            <MessageEntry chat={this.state.chat} /> */}
+            <UserList chat={this.state.globalChat} />
           </View>
         )}
       </View>
@@ -76,10 +83,10 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fff"
   },
   statusBarUnderlay: {
     height: 24,
-    backgroundColor: 'rgba(0,0,0,0.2)',
-  },
+    backgroundColor: "rgba(0,0,0,0.2)"
+  }
 });

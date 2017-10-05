@@ -53,7 +53,7 @@ class MessageEntry extends Component {
               value={this.state.chatInput}
               style={styles.input}
               underlineColorAndroid="transparent"
-              placeholder="Send Message fixed????"
+              placeholder="Send Message ????"
               onChangeText={this.setChatInput}
             />
             <TouchableOpacity style={{backgroundColor:'#D02129'}}>

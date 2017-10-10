@@ -7,41 +7,63 @@ class UserList extends Component {
     super(props);
 
     this.state = {
-      userList: [],
+      userList: {},
     };
   }
 
 
   componentDidMount(){
     this.props.chat.on('$.online.*', (newUser) => {
+      let newUserUuid = newUser.user.uuid;
       let user = {
-        name: newUser.user.uuid,
+        name: newUserUuid,
         avatar_url : 'http://busybridgeng.com/wp-content/uploads/2017/05/generic-avatar.png',
+        online: true
       }
-      this.setState({ userList: [...this.state.userList, user] });
+
+      let userList = {...this.state.userList};
+      userList[newUserUuid] = user;
+
+      this.setState(prevState => ({
+        userList: userList
+      }));
+
+      console.log(this.state.userList);
     });
 
     this.props.chat.on('$.offline.*', (data) => {
-        console.log('User disconnected from the network:', data.user.uuid);
+      console.log('User disconnected from the network:', data.user.uuid);
+      let offlineUserUuid = data.user.uuid;
+
+      let userList = {...this.state.userList};
+      userList[offlineUserUuid].online = false;
+
+      this.setState(prevState => ({
+        userList: userList
+      }));
+
+      console.log(this.state.userList);
     });
   }
 
   renderOnlineList(){
-    return this.state.userList.map((user, index) => (
+    let userList = this.state.userList;
+
+    return Object.keys(userList).map(uuid => 
       <View
-        key={index}
+        key={uuid}
         style={styles.ListItem}
       >
         <Avatar
           containerStyle={styles.avatar}
           rounded
-          source={user.avatar_url && {uri: user.avatar_url}}
-          title={user.name[0]}
+          source={userList[uuid].avatar_url && {uri: userList[uuid].avatar_url}}
+          title={"test"}
         />
-        <View style={styles.online}/>
-        <Text style={styles.username}>{user.name}</Text>
+        <View style={userList[uuid].online ? styles.online : styles.offline}/>
+        <Text style={styles.username}>{uuid}</Text>
       </View>
-    ))
+    )
   }
 
   render() {

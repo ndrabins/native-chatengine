@@ -9,6 +9,8 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
+import NameTypingIndicator from './NameTypingIndicator';
+
 import { Icon } from 'react-native-elements';
 
 class MessageEntry extends Component {
@@ -34,23 +36,31 @@ class MessageEntry extends Component {
   setChatInput(value) {
     this.setState({ chatInput: value });
 
-    if(value !== ""){
-      // this.props.chat.typingIndicator.startTyping();
-    }else{
-      // this.props.chat.typingIndicator.stopTyping();
+    if(this.props.typingIndicator){
+      if(value !== ""){
+        this.props.chat.typingIndicator.startTyping();
+      }else{
+        this.props.chat.typingIndicator.stopTyping();
+      }
+    }
+  }
+
+  onTypingIndicator(){
+    if(this.props.typingIndicator){
+      return <NameTypingIndicator chat={this.props.chat} />
     }
   }
   
   render() {
     return (
       <KeyboardAvoidingView behavior="padding">
-          {/* <NameTypingIndicator chat={this.props.chat} /> */}
+          {this.onTypingIndicator()}
           <View style={styles.footer}>
             <TextInput
               value={this.state.chatInput}
               style={styles.input}
               underlineColorAndroid="transparent"
-              placeholder="Send Message staaahp"
+              placeholder="Send Message"
               onChangeText={this.setChatInput}
             />
             <TouchableOpacity style={{backgroundColor:'#D02129'}}>

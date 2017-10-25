@@ -10,18 +10,23 @@ class ChatList extends Component {
     return (
       <View>
         <View style={styles.header}>
-          <Text style={styles.headerText}> Chat </Text>
+          <Text style={styles.headerText}> Channels </Text>
         </View>
         <List containerStyle={{marginBottom: 20, marginTop:0 }}>
           {
             this.props.chatList.map((chat, index) => (
             <TouchableOpacity key={index}>
-              <ListItem
+            {chat.unread > 0 ?  <ListItem
                 key={index}
                 title={chat.name}
                 subtitle={chat.subtitle}
                 badge={{ value: chat.unread, textStyle: { color: 'white' }, containerStyle: {backgroundColor: '#E14A52', marginTop: 5 } }}
-              />
+              /> :  
+              <ListItem
+                key={index}
+                title={chat.name}
+                subtitle={chat.subtitle}
+              />}
             </TouchableOpacity>
             ))
           }

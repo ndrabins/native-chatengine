@@ -24,7 +24,7 @@ const DrawerStack = DrawerNavigator(
   },
   {
     gesturesEnabled: true,
-    contentComponent: DrawerContainer
+    contentComponent: props => <DrawerContainer {...props} />
   }
 );
 

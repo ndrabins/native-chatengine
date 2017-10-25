@@ -8,7 +8,7 @@ class Chat extends Component {
   render() {
     return (
       <View style={{flex:1}}>
-        <Navigation />
+        <Navigation screenProps={{chatEngine: this.props.chatEngine}}/>
       </View>
     );
   }

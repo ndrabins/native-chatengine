@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Header,Text, Avatar, List, ListItem } from "react-native-elements";
-import { StyleSheet, View, ScrollView } from "react-native";
+import {Text, Avatar, } from "react-native-elements";
+import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
 
 class UserList extends Component {
   constructor(props) {
@@ -13,7 +13,11 @@ class UserList extends Component {
 
 
   componentDidMount(){
+    console.log("userlist");
+    console.log(this.props.chat);
     this.props.chat.on('$.online.*', (newUser) => {
+      console.log("user online");
+      console.log(user);
       let newUserUuid = newUser.user.uuid;
       let user = {
         name: newUserUuid,
@@ -50,19 +54,21 @@ class UserList extends Component {
     let userList = this.state.userList;
 
     return Object.keys(userList).map(uuid => 
-      <View
-        key={uuid}
-        style={styles.ListItem}
-      >
-        <Avatar
-          containerStyle={styles.avatar}
-          rounded
-          source={userList[uuid].avatar_url && {uri: userList[uuid].avatar_url}}
-          title={"test"}
-        />
-        <View style={userList[uuid].online ? styles.online : styles.offline}/>
-        <Text style={styles.username}>{uuid}</Text>
-      </View>
+      <TouchableOpacity key={uuid}>
+        <View
+          key={uuid}
+          style={styles.ListItem}
+        >
+          <Avatar
+            containerStyle={styles.avatar}
+            rounded
+            source={userList[uuid].avatar_url && {uri: userList[uuid].avatar_url}}
+            title={"test"}
+          />
+          <View style={userList[uuid].online ? styles.online : styles.offline}/>
+          <Text style={styles.username}>{uuid}</Text>
+        </View>
+      </TouchableOpacity>
     )
   }
 

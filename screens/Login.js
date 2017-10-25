@@ -20,6 +20,7 @@ class Login extends Component {
 
   onEnterUsername(){
     if(this.state.text !== ""){
+      console.log(this.state.text);
       this.props.loginWithName(this.state.text);
     } else{
       const now = new Date().getTime();

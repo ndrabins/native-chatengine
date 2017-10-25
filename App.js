@@ -38,29 +38,6 @@ const ChatEngine = ChatEngineCore.create(
   }
 );
 
-const chatList = [
-  {
-    name: "Main",
-    subtitle: "Description",
-    unread: 5
-  },
-  {
-    name: "Foolery",
-    subtitle: "Description",
-    unread: 2
-  },
-  {
-    name: "Support",
-    subtitle: "Description",
-    unread: 0
-  },
-  {
-    name: "Docs",
-    subtitle: "Description",
-    unread: 0
-  }
-];
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -79,7 +56,7 @@ export default class App extends React.Component {
     console.ignoredYellowBox = ["Setting a timer"];
   }
 
-  loginWithName(username = "default") {
+  loginWithName(username) {
     const now = new Date().getTime();
 
     ChatEngine.connect(

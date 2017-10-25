@@ -88,7 +88,7 @@ class MessageList extends Component {
     this.props.chat.on("message", payload => {
       this.setState({ messages: [...this.state.messages, payload] });
       console.log("new message", this.state.messages);
-      setTimeout(() => this.flatList.scrollToEnd(), 200);
+      setTimeout(() => this.flatList.scrollToEnd());
     });
 
     this.props.chat.on("$.history.message", payload => {

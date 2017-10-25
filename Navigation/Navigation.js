@@ -30,8 +30,7 @@ const DrawerStack = DrawerNavigator(
 
 const drawerButton = navigation => (
   <TouchableOpacity
-    hitSlop={{ top: 10, bottom: 10, left: 20, right: 20}}
-    style={{ marginLeft: 10 }}
+    style={{ paddingLeft: 10, width:50, height:55, justifyContent:'center' }}
     onPress={() => {
       // Coming soon: navigation.navigate('DrawerToggle')
       // https://github.com/react-community/react-navigation/pull/2492

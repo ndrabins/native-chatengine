@@ -5,7 +5,6 @@ import { DrawerNavigator, StackNavigator } from "react-navigation";
 import ChatEngineCore from "chat-engine";
 import ChatEngineGravatar from "chat-engine-gravatar";
 import ChatEngineMarkdown from "chat-engine-markdown";
-import typingIndicator from "chat-engine-typing-indicator";
 
 import MessageEntry from "./components/MessageEntry";
 import MessageList from "./components/MessageList";
@@ -62,6 +61,7 @@ export default class App extends React.Component {
     ChatEngine.connect(
       username,
       {
+        name: username,
         signedOnTime: now
       },
       "auth-key"
@@ -75,6 +75,7 @@ export default class App extends React.Component {
       // let chat3 = new ChatEngine.Chat("Party Room", false);
 
       const me = data.me;
+      console.log(me);
       // console.log(ChatEngine.chats);
       // console.log(me);
 

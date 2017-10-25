@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 import {
   StyleSheet,
@@ -6,19 +6,19 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
-} from 'react-native';
+  KeyboardAvoidingView
+} from "react-native";
 
-import NameTypingIndicator from './NameTypingIndicator';
+import NameTypingIndicator from "./NameTypingIndicator";
 
-import { Icon } from 'react-native-elements';
+import { Icon } from "react-native-elements";
 
 class MessageEntry extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      chatInput: "",
+      chatInput: ""
     };
 
     this.setChatInput = this.setChatInput.bind(this);
@@ -26,7 +26,7 @@ class MessageEntry extends Component {
 
   sendChat() {
     if (this.state.chatInput) {
-      this.props.chat.emit('message', {
+      this.props.chat.emit("message", {
         text: this.state.chatInput
       });
       this.setState({ chatInput: "" });
@@ -36,65 +36,70 @@ class MessageEntry extends Component {
   setChatInput(value) {
     this.setState({ chatInput: value });
 
-    if(this.props.typingIndicator){
-      if(value !== ""){
+    if (this.props.typingIndicator) {
+      if (value !== "") {
         this.props.chat.typingIndicator.startTyping();
-      }else{
+      } else {
         this.props.chat.typingIndicator.stopTyping();
       }
     }
   }
 
-  onTypingIndicator(){
-    if(this.props.typingIndicator){
-      return <NameTypingIndicator chat={this.props.chat} />
+  onTypingIndicator() {
+    if (this.props.typingIndicator) {
+      return <NameTypingIndicator chat={this.props.chat} />;
     }
   }
-  
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding">
-          {this.onTypingIndicator()}
-          <View style={styles.footer}>
-            <TextInput
-              value={this.state.chatInput}
-              style={styles.input}
-              underlineColorAndroid="transparent"
-              placeholder="Send Message"
-              onChangeText={this.setChatInput}
+        {this.onTypingIndicator()}
+        <View style={styles.footer}>
+          <TextInput
+            value={this.state.chatInput}
+            style={styles.input}
+            underlineColorAndroid="transparent"
+            placeholder="Send Message"
+            onChangeText={this.setChatInput}
+            onSubmitEditing={() => {
+              this.sendChat();
+            }}
+          />
+          <TouchableOpacity
+            style={{ backgroundColor: "#D02129" }}
+            onPress={() => {
+              this.sendChat();
+            }}
+          >
+            <Icon
+              reverse
+              name="send"
+              size={26}
+              color="#D02129"
+              style={styles.send}
             />
-            <TouchableOpacity style={{backgroundColor:'#D02129'}}>
-              <Icon
-                reverse
-                name="send"
-                size={26}
-                color="#D02129"
-                style={styles.send} 
-                onPress={() => {
-                  this.sendChat();
-                }}
-              />
-            </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   footer: {
-    flexDirection: 'row',
-    backgroundColor: '#eee',
+    flexDirection: "row",
+    backgroundColor: "#eee"
   },
   input: {
     paddingHorizontal: 20,
     fontSize: 18,
-    flex: 1,
+    flex: 1
   },
   send: {
-    alignSelf: 'center',
-    padding: 10,
-  },
+    alignSelf: "center",
+    padding: 10
+  }
 });
 
 export default MessageEntry;

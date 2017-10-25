@@ -15,8 +15,8 @@ class ChatList extends Component {
         <List containerStyle={{marginBottom: 20, marginTop:0 }}>
           {
             this.props.chatList.map((chat, index) => (
-            <TouchableOpacity key={index}>
-            {chat.unread > 0 ?  <ListItem
+            <TouchableOpacity key={index} onPress={() => this.props.onChatPress(chat)}>
+             {chat.unread > 0 ?  <ListItem
                 key={index}
                 title={chat.name}
                 subtitle={chat.subtitle}

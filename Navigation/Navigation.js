@@ -34,6 +34,7 @@ const drawerButton = navigation => (
     size={32}
     color="white"
     style={{marginLeft:10}}
+    hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
     onPress={() => {
       // Coming soon: navigation.navigate('DrawerToggle')
       // https://github.com/react-community/react-navigation/pull/2492
@@ -55,7 +56,7 @@ const DrawerNavigation = StackNavigator(
       headerStyle: { backgroundColor: "#cb2d3e",  },
       headerTitleStyle :{textAlign: 'center',alignSelf:'center'},
       headerRight: (<View></View>),
-      title: "Welcome!",
+      title: "Main",
       headerTintColor: "white",
       gesturesEnabled: false,
       headerLeft: drawerButton(navigation),

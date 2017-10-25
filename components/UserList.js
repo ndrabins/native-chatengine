@@ -11,16 +11,13 @@ class UserList extends Component {
     };
   }
 
-
   componentDidMount(){
-    console.log("userlist");
-    console.log(this.props.chat);
+    console.log("online list is" ,this.props.chat);
     this.props.chat.on('$.online.*', (newUser) => {
-      console.log("user online");
-      console.log(user);
+      console.log("user online:", newUser);
       let newUserUuid = newUser.user.uuid;
       let user = {
-        name: newUserUuid,
+        name: newUser.user.state.name,
         avatar_url : 'http://busybridgeng.com/wp-content/uploads/2017/05/generic-avatar.png',
         online: true
       }
@@ -36,7 +33,7 @@ class UserList extends Component {
     });
 
     this.props.chat.on('$.offline.*', (data) => {
-      console.log('User disconnected from the network:', data.user.uuid);
+      console.log('User disconnected from the network:', data.user);
       let offlineUserUuid = data.user.uuid;
 
       let userList = {...this.state.userList};
@@ -52,6 +49,7 @@ class UserList extends Component {
 
   renderOnlineList(){
     let userList = this.state.userList;
+    console.log(userList);
 
     return Object.keys(userList).map(uuid => 
       <TouchableOpacity key={uuid}>

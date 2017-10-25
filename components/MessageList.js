@@ -12,7 +12,7 @@ import HTMLView from "react-native-htmlview";
 const Message = props => {
   //if the user is "me" render right, if not render left
 
-  if (props.message.sender.uuid === props.me.uuid) {
+  if (true) {
     //return users own messages with different styling
     return (
       <View style={styles.myMessageContainer}>
@@ -24,7 +24,7 @@ const Message = props => {
   }
 
   //this is to handle the case that history returns a user object instead of a string for the uuid
-  if(props.message.sender.uuid){
+  if(false){
     return (
       <View style={styles.messageContainer}>
         <View style={styles.avatar}>
@@ -39,7 +39,7 @@ const Message = props => {
           />
         </View>
         <View style={{ flexDirection: "column"}}>
-          <Text style={styles.messageUID}>{props.message.sender.uuid}</Text>
+          <Text style={styles.messageUID}>random</Text>
           <View style={styles.recievedMessages}>
             <HTMLView value={props.message.data.text} stylesheet={styles} />
           </View>

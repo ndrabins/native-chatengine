@@ -28,8 +28,6 @@ class UserList extends Component {
       this.setState(prevState => ({
         userList: userList
       }));
-
-      console.log(this.state.userList);
     });
 
     this.props.chat.on('$.offline.*', (data) => {
@@ -64,7 +62,7 @@ class UserList extends Component {
             title={"test"}
           />
           <View style={userList[uuid].online ? styles.online : styles.offline}/>
-          <Text style={styles.username}>{uuid}</Text>
+          <Text style={styles.username}>{userList[uuid].name}</Text>
         </View>
       </TouchableOpacity>
     )

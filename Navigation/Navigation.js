@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Animated, Easing, View} from "react-native";
+import { Text, Animated, Easing, View, TouchableOpacity } from "react-native";
 import { StackNavigator, DrawerNavigator } from "react-navigation";
 import ChatRoom from "../screens/ChatRoom";
 import Screen2 from "../screens/Screen2";
@@ -29,12 +29,9 @@ const DrawerStack = DrawerNavigator(
 );
 
 const drawerButton = navigation => (
-  <Ionicons
-    name="ios-menu"
-    size={32}
-    color="white"
-    style={{marginLeft:10}}
-    hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
+  <TouchableOpacity
+    hitSlop={{ top: 10, bottom: 10, left: 20, right: 20}}
+    style={{ marginLeft: 10 }}
     onPress={() => {
       // Coming soon: navigation.navigate('DrawerToggle')
       // https://github.com/react-community/react-navigation/pull/2492
@@ -44,7 +41,9 @@ const drawerButton = navigation => (
         navigation.navigate("DrawerClose");
       }
     }}
-  />
+  >
+    <Ionicons name="ios-menu" size={32} color="white" />
+  </TouchableOpacity>
 );
 
 const DrawerNavigation = StackNavigator(
@@ -53,13 +52,13 @@ const DrawerNavigation = StackNavigator(
   },
   {
     navigationOptions: ({ navigation }) => ({
-      headerStyle: { backgroundColor: "#cb2d3e",  },
-      headerTitleStyle :{textAlign: 'center',alignSelf:'center'},
-      headerRight: (<View></View>),
+      headerStyle: { backgroundColor: "#cb2d3e" },
+      headerTitleStyle: { textAlign: "center", alignSelf: "center" },
+      headerRight: <View />,
       title: "Main",
       headerTintColor: "white",
       gesturesEnabled: false,
-      headerLeft: drawerButton(navigation),
+      headerLeft: drawerButton(navigation)
     })
   }
 );

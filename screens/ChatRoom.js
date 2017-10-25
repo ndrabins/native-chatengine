@@ -23,17 +23,16 @@ export default class ChatRoom extends React.Component {
   }
 
   componentDidMount() {
-    console.log("in chatroom");
     const chatEngine = this.props.screenProps.chatEngine;
     let chat = new chatEngine.Chat("Main", true);
     // chat.plugin(typingIndicator({ timeout: 5000 }));
-    console.log(this.state);
     this.setState({
       chat: chat,
       renderChat: true,
       me: chatEngine.me,
       globalChat: chatEngine.global
     });
+    console.log(this.state);
   }
 
   componentWillUpdate(){

@@ -55,9 +55,8 @@ export default class App extends React.Component {
     console.ignoredYellowBox = ["Setting a timer"];
   }
 
-  loginWithName(username) {
+  loginWithName = (username) => {
     const now = new Date().getTime();
-
     ChatEngine.connect(
       username,
       {
@@ -70,14 +69,9 @@ export default class App extends React.Component {
     ChatEngine.on("$.ready", data => {
       console.log("chatengine ready");
 
-      // let chat = new ChatEngine.Chat("General2", true);
-      // let chat2 = new ChatEngine.Chat("Announcements", false);
-      // let chat3 = new ChatEngine.Chat("Party Room", false);
-
       const me = data.me;
       console.log(me);
       // console.log(ChatEngine.chats);
-      // console.log(me);
 
       // chat.plugin(typingIndicator({ timeout: 5000 }));
       this.setState({
@@ -86,6 +80,7 @@ export default class App extends React.Component {
         me: data.me,
         globalChat: ChatEngine.global
       });
+
     });
   }
 
@@ -96,7 +91,7 @@ export default class App extends React.Component {
         {Platform.OS === "android" && <View style={styles.statusBarUnderlay} />}
 
         {!this.state.renderChat ? (
-          <LoginScreen loginWithName={() => this.loginWithName()} />
+          <LoginScreen loginWithName={this.loginWithName} />
         ) : (
           <View style={{ flex: 1 }}>
             <Chat chatEngine={ChatEngine}/>

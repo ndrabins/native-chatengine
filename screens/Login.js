@@ -14,20 +14,16 @@ class Login extends Component {
     super(props);
     this.state = { text: "" };
   }
-  componentDidMount() {
-    // this.props.loginWithName("Billy");
-  }
 
-  onEnterUsername(){
-    if(this.state.text !== ""){
-      console.log(this.state.text);
-      this.props.loginWithName(this.state.text);
-    } else{
-      const now = new Date().getTime();
-      const username = ["user", now].join("-");
-      this.props.loginWithName(username);
-    }
-  }
+  // onEnterUsername(value){
+  //   if(this.state.text !== ""){
+  //     this.props.loginWithName(this.state.text);
+  //   } else{
+  //     const now = new Date().getTime();
+  //     const username = ["user", now].join("-");
+  //     this.props.loginWithName(username);
+  //   }
+  // }
 
   render() {
     return (
@@ -40,7 +36,7 @@ class Login extends Component {
           <TextInput
             style={ styles.textInput }
             keyboardType={ 'web-search' }
-            onSubmitEditing={ this.onEnterUsername }
+            onSubmitEditing={ () => this.props.loginWithName(this.state.text)}
             editable={ true }
             maxLength={ 40 }
             placeholder="Login Name"
@@ -51,7 +47,7 @@ class Login extends Component {
             selectionColor={"#FFCDD2"}
           />
           
-          <TouchableOpacity onPress={() => this.onEnterUsername() }>
+          <TouchableOpacity onPress={() => this.props.loginWithName(this.state.text) }>
             <LinearGradient
               colors={['#cb2d3e','#ef473a']}
               style={styles.button}

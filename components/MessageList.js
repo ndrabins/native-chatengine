@@ -9,22 +9,48 @@ import HTMLView from "react-native-htmlview";
 
 // uri: "https:" + props.message.sender.state().gravatar
 
-const Message = props => {
+class Message extends React.PureComponent {
+  //TODO: Refactor this component
+
   //if the user is "me" render right, if not render left
-
-  if (true) {
-    //return users own messages with different styling
-    return (
-      <View style={styles.myMessageContainer}>
-        <View style={styles.myMessages}>
-          <HTMLView value={`<p> ${props.message.data.text} </p>`} stylesheet={styles} />
+  render() {
+    if (true) {
+      //return users own messages with different styling
+      return (
+        <View style={styles.myMessageContainer}>
+          <View style={styles.myMessages}>
+            <HTMLView value={`<p> ${this.props.message.data.text} </p>`} stylesheet={styles} />
+          </View>
         </View>
-      </View>
-    );
-  }
+      );
+    }
 
-  //this is to handle the case that history returns a user object instead of a string for the uuid
-  if(false){
+    //this is to handle the case that history returns a user object instead of a string for the uuid
+    if(false){
+      return (
+        <View style={styles.messageContainer}>
+          <View style={styles.avatar}>
+            <Avatar
+              small
+              rounded
+              source={{
+                uri:
+                  "https://vignette2.wikia.nocookie.net/starwars/images/0/02/Jar_Jar_SWSB.png/revision/latest?cb=20160910034613"
+              }}
+              activeOpacity={0.7}
+            />
+          </View>
+          <View style={{ flexDirection: "column"}}>
+            <Text style={styles.messageUID}>random</Text>
+            <View style={styles.recievedMessages}>
+              <HTMLView value={this.props.message.data.text} stylesheet={styles} />
+            </View>
+          </View>
+        </View>
+      );
+    }
+
+  //messages that aren't from me
     return (
       <View style={styles.messageContainer}>
         <View style={styles.avatar}>
@@ -39,7 +65,7 @@ const Message = props => {
           />
         </View>
         <View style={{ flexDirection: "column"}}>
-          <Text style={styles.messageUID}>random</Text>
+          <Text style={styles.messageUID}>{props.message.sender} </Text>
           <View style={styles.recievedMessages}>
             <HTMLView value={props.message.data.text} stylesheet={styles} />
           </View>
@@ -47,32 +73,9 @@ const Message = props => {
       </View>
     );
   }
-
-  //messages that aren't from me
-  return (
-    <View style={styles.messageContainer}>
-      <View style={styles.avatar}>
-        <Avatar
-          small
-          rounded
-          source={{
-            uri:
-              "https://vignette2.wikia.nocookie.net/starwars/images/0/02/Jar_Jar_SWSB.png/revision/latest?cb=20160910034613"
-          }}
-          activeOpacity={0.7}
-        />
-      </View>
-      <View style={{ flexDirection: "column"}}>
-        <Text style={styles.messageUID}>{props.message.sender} </Text>
-        <View style={styles.recievedMessages}>
-          <HTMLView value={props.message.data.text} stylesheet={styles} />
-        </View>
-      </View>
-    </View>
-  );
 };
 
-class MessageList extends Component {
+class MessageList extends React.PureComponent {
   constructor(props) {
     super(props);
 

@@ -25,7 +25,7 @@ export default class ChatRoom extends React.Component {
   componentDidMount() {
     const chatEngine = this.props.screenProps.chatEngine;
     let chat = new chatEngine.Chat("Chat", true);
-    // chat.plugin(typingIndicator({ timeout: 5000 }));
+    chat.plugin(typingIndicator({ timeout: 5000 }));
     this.setState({
       chat: chat,
       renderChat: true,
@@ -45,7 +45,7 @@ export default class ChatRoom extends React.Component {
         {this.state.renderChat ? (
           <View style={{flex:1,width:"100%", marginTop:-80}}>
             <MessageList chat={this.state.chat} me={this.state.me}/>
-            <MessageEntry chat={this.state.chat} />
+            <MessageEntry chat={this.state.chat} typingIndicator/>
           </View>
         ) : (
           <Text>

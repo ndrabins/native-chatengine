@@ -18,7 +18,7 @@ class MessageEntry extends Component {
     super(props);
 
     this.state = {
-      chatInput: ""
+      chatInput: "",
     };
 
     this.setChatInput = this.setChatInput.bind(this);
@@ -53,7 +53,7 @@ class MessageEntry extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding">
+      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={this.props.keyboardVerticalOffset || 0}>
         {this.onTypingIndicator()}
         <View style={styles.footer}>
           <TextInput

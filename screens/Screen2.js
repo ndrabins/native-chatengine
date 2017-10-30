@@ -6,10 +6,6 @@ export default class Screen2 extends React.Component {
     drawerLabel: 'Screen1',
   };
 
-  componentDidMount(){
-    console.log(this.props.navigation);
-  }
-
   render() {
     return (
       <View style={styles.container}>

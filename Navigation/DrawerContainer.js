@@ -48,9 +48,6 @@ const chatList = [
   },
 ];
 export default class DrawerContainer extends React.Component {
-  componentDidMount(){
-    console.log(this.props);
-  }
 
   onChatPress = (chat) =>{
     console.log("Navigating to chat");

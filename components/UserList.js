@@ -12,9 +12,7 @@ class UserList extends Component {
   }
 
   componentDidMount(){
-    console.log("online list is" ,this.props.chat);
     this.props.chat.on('$.online.*', (newUser) => {
-      console.log("user online:", newUser);
       let newUserUuid = newUser.user.uuid;
       let user = {
         name: newUser.user.state.name,
@@ -31,7 +29,6 @@ class UserList extends Component {
     });
 
     this.props.chat.on('$.offline.*', (data) => {
-      console.log('User disconnected from the network:', data.user);
       let offlineUserUuid = data.user.uuid;
 
       let userList = {...this.state.userList};
@@ -41,13 +38,11 @@ class UserList extends Component {
         userList: userList
       }));
 
-      console.log(this.state.userList);
     });
   }
 
   renderOnlineList(){
     let userList = this.state.userList;
-    console.log(userList);
 
     return Object.keys(userList).map(uuid => 
       <TouchableOpacity key={uuid}>

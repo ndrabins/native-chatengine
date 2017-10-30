@@ -70,12 +70,8 @@ export default class App extends React.Component {
       console.log("chatengine ready");
 
       const me = data.me;
-      console.log(me);
-      // console.log(ChatEngine.chats);
 
-      // chat.plugin(typingIndicator({ timeout: 5000 }));
       this.setState({
-        // chat: chat,
         renderChat: true,
         me: data.me,
         globalChat: ChatEngine.global

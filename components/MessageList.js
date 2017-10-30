@@ -14,37 +14,12 @@ class Message extends React.PureComponent {
 
   //if the user is "me" render right, if not render left
   render() {
-    if (true) {
+    if (this.props.message.sender.name === "Me") {
       //return users own messages with different styling
       return (
         <View style={styles.myMessageContainer}>
           <View style={styles.myMessages}>
             <HTMLView value={`<p> ${this.props.message.data.text} </p>`} stylesheet={styles} />
-          </View>
-        </View>
-      );
-    }
-
-    //this is to handle the case that history returns a user object instead of a string for the uuid
-    if(false){
-      return (
-        <View style={styles.messageContainer}>
-          <View style={styles.avatar}>
-            <Avatar
-              small
-              rounded
-              source={{
-                uri:
-                  "https://vignette2.wikia.nocookie.net/starwars/images/0/02/Jar_Jar_SWSB.png/revision/latest?cb=20160910034613"
-              }}
-              activeOpacity={0.7}
-            />
-          </View>
-          <View style={{ flexDirection: "column"}}>
-            <Text style={styles.messageUID}>random</Text>
-            <View style={styles.recievedMessages}>
-              <HTMLView value={this.props.message.data.text} stylesheet={styles} />
-            </View>
           </View>
         </View>
       );
@@ -59,15 +34,15 @@ class Message extends React.PureComponent {
             rounded
             source={{
               uri:
-                "https://vignette2.wikia.nocookie.net/starwars/images/0/02/Jar_Jar_SWSB.png/revision/latest?cb=20160910034613"
+                "http://busybridgeng.com/wp-content/uploads/2017/05/generic-avatar.png"
             }}
             activeOpacity={0.7}
           />
         </View>
         <View style={{ flexDirection: "column"}}>
-          <Text style={styles.messageUID}>{props.message.sender} </Text>
+          <Text style={styles.messageUID}>{this.props.message.sender.uuid} </Text>
           <View style={styles.recievedMessages}>
-            <HTMLView value={props.message.data.text} stylesheet={styles} />
+            <HTMLView value={this.props.message.data.text} stylesheet={styles} />
           </View>
         </View>
       </View>
@@ -87,18 +62,16 @@ class MessageList extends React.PureComponent {
   _keyExtractor = (item, index) => index;
 
   componentDidMount() {
-    console.log("Mounting MessageList");
     this.props.chat.on("message", payload => {
       this.setState({ messages: [...this.state.messages, payload] });
-      console.log("new message", this.state.messages);
     });
 
-    this.props.chat.on("$.history.message", payload => {
-      console.log("old message", payload);
-      this.setState({ messages: [...this.state.messages, payload] });
-    });
+    // this.props.chat.on("$.history.message", payload => {
+    //   console.log("old message", payload);
+    //   this.setState({ messages: [...this.state.messages, payload] });
+    // });
 
-    this.props.chat.history("message");
+    // this.props.chat.history("message");
   }
 
   render() {
@@ -116,7 +89,7 @@ class MessageList extends React.PureComponent {
 
 const styles = StyleSheet.create({
   messageList: {
-    flex: 1
+    flex: 1,
   },
   recievedMessages: {
     borderRadius: 15,
@@ -124,7 +97,6 @@ const styles = StyleSheet.create({
     marginRight: 60,
     minHeight: 30,
     justifyContent: "center",
-    marginBottom: 3,
     padding: 5,
     alignItems:'flex-start',
   },
@@ -134,23 +106,26 @@ const styles = StyleSheet.create({
     marginLeft: 60,
     minHeight: 30,
     justifyContent: "center",
-    marginBottom: 3,
     padding: 5,
     alignItems:'flex-end',
   },
   myMessageContainer: {
-    flexDirection: "row",
     flex: 1,
+    flexDirection: "row",
     alignSelf: 'flex-end',
+    margin: 3,
+    marginBottom: 0,
   },
   messageContainer: {
-    flexDirection: "row",
     flex: 1,
+    flexDirection: "row",
     alignSelf: 'flex-start',
+    margin: 3,
+    marginBottom: 0,
   },
   avatar: {
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     marginRight: 3
   },
   messageUID: {

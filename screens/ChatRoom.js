@@ -7,9 +7,10 @@ import MessageEntry from "../components/MessageEntry";
 import MessageList from "../components/MessageList";
 
 export default class ChatRoom extends React.Component {
-  static navigationOptions = {
-    drawerLabel: "ChatRoom"
-  };
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    drawerLabel: "ChatRoom",
+    title: navigation.state.params.title
+  });
 
   constructor(props) {
     super(props);
@@ -24,7 +25,7 @@ export default class ChatRoom extends React.Component {
 
   componentDidMount() {
     const chatEngine = this.props.screenProps.chatEngine;
-    let chat = new chatEngine.Chat("Chat1", true);
+    let chat = new chatEngine.Chat("MainRoom", true);
     chat.plugin(typingIndicator({ timeout: 5000 }));
     this.setState({
       chat: chat,

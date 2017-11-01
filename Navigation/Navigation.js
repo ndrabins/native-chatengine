@@ -20,17 +20,20 @@ const noTransitionConfig = () => ({
 const DrawerStack = DrawerNavigator(
   {
     ChatRoom: { screen: ChatRoom },
-    screen2: { screen: Screen2 }
   },
   {
     gesturesEnabled: true,
+    initialRouteName: "ChatRoom",
+    initialRouteParams: {
+      title: "Initial"
+    },
     contentComponent: props => <DrawerContainer {...props} />
   }
 );
 
 const drawerButton = navigation => (
   <TouchableOpacity
-    style={{ paddingLeft: 10, width:50, height:55, justifyContent:'center' }}
+    style={{ paddingLeft: 10, width: 50, height: 55, justifyContent: "center" }}
     onPress={() => {
       // Coming soon: navigation.navigate('DrawerToggle')
       // https://github.com/react-community/react-navigation/pull/2492
@@ -50,11 +53,13 @@ const DrawerNavigation = StackNavigator(
     DrawerStack: { screen: DrawerStack }
   },
   {
+    initialRouteParams: {
+      title: "General"
+    },
     navigationOptions: ({ navigation }) => ({
       headerStyle: { backgroundColor: "#cb2d3e" },
       headerTitleStyle: { textAlign: "center", alignSelf: "center" },
       headerRight: <View />,
-      title: "Main",
       headerTintColor: "white",
       gesturesEnabled: false,
       headerLeft: drawerButton(navigation)

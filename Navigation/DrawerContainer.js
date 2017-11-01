@@ -7,7 +7,7 @@ import UserList from '../components/UserList';
 
 const chatList = [
   {
-    name: "Main",
+    name: "General",
     subtitle: "General Chat",
     unread: 5
   },
@@ -48,16 +48,21 @@ const chatList = [
   },
 ];
 export default class DrawerContainer extends React.Component {
+  componentDidMount(){
+    console.log(this.props.navigation);
+  }
 
   onChatPress = (chat) =>{
     console.log("Navigating to chat");
     console.log(chat);
-    this.props.navigation.navigate('ChatRoom', {title:chat.name});
+    this.props.navigation.navigate('ChatRoom', {title: chat.name});
+    // this.props.navigation.setParams({title: chat.name});
+    console.log(this.props.navigation);
   }
 
   render() {
     const chatEngine = this.props.screenProps.chatEngine;
-    console.log(chatEngine);
+    // console.log(chatEngine);
     const { navigation } = this.props
     return (
       <ScrollView style={styles.container}>

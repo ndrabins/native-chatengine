@@ -66,12 +66,26 @@ class MessageList extends React.PureComponent {
       this.setState({ messages: [...this.state.messages, payload] });
     });
 
+    let searchy = this.props.chat.search({
+      event: 'message',
+      limit: 50
+    });
+
+    
     // this.props.chat.on("$.history.message", payload => {
     //   console.log("old message", payload);
     //   this.setState({ messages: [...this.state.messages, payload] });
     // });
 
     // this.props.chat.history("message");
+
+    searchy.on('message', (data) => {
+      this.setState({ messages: [...this.state.messages, data] });
+    });
+    
+    searchy.on('$.search.finish', () => {
+      console.log('end of search');
+    });
   }
 
   render() {
@@ -114,14 +128,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: 'flex-end',
     margin: 3,
-    marginBottom: 0,
   },
   messageContainer: {
     flex: 1,
     flexDirection: "row",
     alignSelf: 'flex-start',
     margin: 3,
-    marginBottom: 0,
   },
   avatar: {
     flexDirection: "column",

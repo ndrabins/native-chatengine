@@ -25,7 +25,7 @@ export default class ChatRoom extends React.Component {
 
   componentDidMount() {
     const chatEngine = this.props.screenProps.chatEngine;
-    let chat = new chatEngine.Chat("MainRoom", true);
+    let chat = new chatEngine.Chat("General", false);
     chat.plugin(typingIndicator({ timeout: 5000 }));
     this.setState({
       chat: chat,
@@ -33,6 +33,23 @@ export default class ChatRoom extends React.Component {
       me: chatEngine.me,
       globalChat: chatEngine.global
     });
+  }
+
+  componentWillUpdate(newProps){
+    let {title} = newProps.navigation.state.params;
+    if(this.props.navigation.state.params.title !== title){
+      // console.log("Change chat rooms");
+      const chatEngine = this.props.screenProps.chatEngine;
+      let chat = new chatEngine.Chat(title, false);
+      chat.plugin(typingIndicator({ timeout: 5000 }));
+      this.setState({
+        chat: chat,
+        renderChat: true,
+        me: chatEngine.me,
+        globalChat: chatEngine.global
+      });
+    }
+
   }
 
   render() {

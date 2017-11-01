@@ -49,15 +49,12 @@ const chatList = [
 ];
 export default class DrawerContainer extends React.Component {
   componentDidMount(){
-    console.log(this.props.navigation);
+    // console.log(this.props.navigation);
   }
 
   onChatPress = (chat) =>{
-    console.log("Navigating to chat");
-    console.log(chat);
     this.props.navigation.navigate('ChatRoom', {title: chat.name});
     // this.props.navigation.setParams({title: chat.name});
-    console.log(this.props.navigation);
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Header,Text, Avatar } from "react-native-elements";
-import { StyleSheet, View, ScrollView, FlatList } from "react-native";
+import { StyleSheet, View, ScrollView, FlatList, ActivityIndicator } from "react-native";
 
 import ChatEngineGravatar from "chat-engine-gravatar";
 import ChatEngineMarkdown from "chat-engine-markdown";
@@ -55,40 +55,63 @@ class MessageList extends React.PureComponent {
     super(props);
 
     this.state = {
-      messages: []
+      messages: [],
+      loading: true,
     };
   }
 
   _keyExtractor = (item, index) => index;
 
   componentDidMount() {
-    this.props.chat.on("message", payload => {
-      this.setState({ messages: [...this.state.messages, payload] });
-    });
-
     let searchy = this.props.chat.search({
       event: 'message',
       limit: 50
     });
-
-    
-    // this.props.chat.on("$.history.message", payload => {
-    //   console.log("old message", payload);
-    //   this.setState({ messages: [...this.state.messages, payload] });
-    // });
-
-    // this.props.chat.history("message");
 
     searchy.on('message', (data) => {
       this.setState({ messages: [...this.state.messages, data] });
     });
     
     searchy.on('$.search.finish', () => {
-      console.log('end of search');
+      this.setState({loading:false, messages: this.state.messages.reverse()});
+
+      this.props.chat.on("message", payload => {
+        this.setState({ messages: [...this.state.messages, payload] });
+      });
     });
   }
 
+  componentWillUpdate(newProps){
+    if(this.props.chat !== newProps.chat){
+      this.setState({messages: [], loading:true});
+  
+      let searchy = newProps.chat.search({
+        event: 'message',
+        limit: 50
+      });
+  
+      searchy.on('message', (data) => {
+        this.setState({ messages: [...this.state.messages, data] });
+      });
+      
+      searchy.on('$.search.finish', () => {
+        this.setState({loading:false, messages: this.state.messages.reverse()});
+
+        newProps.chat.on("message", payload => {
+          this.setState({ messages: [...this.state.messages, payload] });
+        });
+      });
+    }
+  }
+
   render() {
+    if(this.state.loading){
+      return (
+        <View style={{flex:1, justifyContent:"center", alignItems:"center"}}>
+          <ActivityIndicator size="large"/>
+        </View>
+      )
+    }
     return (
       <FlatList
         ref={el => (this.flatList = el)}

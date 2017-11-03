@@ -91,7 +91,6 @@ class MessageList extends React.PureComponent {
   
       searchy.on('message', (data) => {
         this.setState({ messages: [...this.state.messages, data] });
-        console.log(data);
       });
       
       searchy.on('$.search.finish', () => {

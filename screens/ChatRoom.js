@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, KeyboardAvoidingView} from "react-native";
+import { StyleSheet, Text, View, Image, KeyboardAvoidingView, ActivityIndicator} from "react-native";
 
 import typingIndicator from "chat-engine-typing-indicator";
+import ChatEngineMarkdown from "chat-engine-markdown";
 
 import MessageEntry from "../components/MessageEntry";
 import MessageList from "../components/MessageList";
@@ -25,8 +26,12 @@ export default class ChatRoom extends React.Component {
 
   componentDidMount() {
     const chatEngine = this.props.screenProps.chatEngine;
-    let chat = new chatEngine.Chat("General", false);
+    let chat = new chatEngine.Chat("General Chat", false);
     chat.plugin(typingIndicator({ timeout: 5000 }));
+
+    chat.plugin(ChatEngineMarkdown({}));
+
+
     this.setState({
       chat: chat,
       renderChat: true,
@@ -38,10 +43,11 @@ export default class ChatRoom extends React.Component {
   componentWillUpdate(newProps){
     let {title} = newProps.navigation.state.params;
     if(this.props.navigation.state.params.title !== title){
-      // console.log("Change chat rooms");
       const chatEngine = this.props.screenProps.chatEngine;
       let chat = new chatEngine.Chat(title, false);
       chat.plugin(typingIndicator({ timeout: 5000 }));
+      chat.plugin(ChatEngineMarkdown({}));
+
       this.setState({
         chat: chat,
         renderChat: true,
@@ -49,7 +55,6 @@ export default class ChatRoom extends React.Component {
         globalChat: chatEngine.global
       });
     }
-
   }
 
   render() {
@@ -61,9 +66,9 @@ export default class ChatRoom extends React.Component {
             <MessageEntry chat={this.state.chat} typingIndicator keyboardVerticalOffset={80}/>
           </View>
         ) : (
-          <Text>
-          loading
-          </Text>
+        <View style={{flex:1, justifyContent:"center", alignItems:"center"}}>
+            <ActivityIndicator size="large"/>
+        </View>
         )}
       </View>
     );

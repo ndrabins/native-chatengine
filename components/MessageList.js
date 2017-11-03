@@ -3,7 +3,6 @@ import { Header,Text, Avatar } from "react-native-elements";
 import { StyleSheet, View, ScrollView, FlatList, ActivityIndicator } from "react-native";
 
 import ChatEngineGravatar from "chat-engine-gravatar";
-import ChatEngineMarkdown from "chat-engine-markdown";
 
 import HTMLView from "react-native-htmlview";
 
@@ -92,6 +91,7 @@ class MessageList extends React.PureComponent {
   
       searchy.on('message', (data) => {
         this.setState({ messages: [...this.state.messages, data] });
+        console.log(data);
       });
       
       searchy.on('$.search.finish', () => {

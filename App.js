@@ -4,7 +4,6 @@ import { DrawerNavigator, StackNavigator } from "react-navigation";
 
 import ChatEngineCore from "chat-engine";
 import ChatEngineGravatar from "chat-engine-gravatar";
-import ChatEngineMarkdown from "chat-engine-markdown";
 
 import MessageEntry from "./components/MessageEntry";
 import MessageList from "./components/MessageList";
@@ -67,8 +66,6 @@ export default class App extends React.Component {
     );
 
     ChatEngine.on("$.ready", data => {
-      console.log("chatengine ready");
-
       const me = data.me;
 
       this.setState({

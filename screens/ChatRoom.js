@@ -62,7 +62,7 @@ export default class ChatRoom extends React.Component {
       <View style={styles.container}>
         {this.state.renderChat ? (
           <View style={{flex:1,width:"100%"}}>
-            <MessageList chat={this.state.chat} me={this.state.me}/>
+            <MessageList chat={this.state.chat}/>
             <MessageEntry chat={this.state.chat} typingIndicator keyboardVerticalOffset={80}/>
           </View>
         ) : (

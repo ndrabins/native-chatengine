@@ -117,7 +117,7 @@ class MessageList extends React.PureComponent {
         data={this.state.messages}
         extraData={this.state}
         keyExtractor={this._keyExtractor}
-        renderItem={({ item }) => <Message message={item} me={this.props.me} />}
+        renderItem={({ item }) => <Message message={item} />}
       />
     );
   }

@@ -56,6 +56,11 @@ export default class App extends React.Component {
 
   loginWithName = (username) => {
     const now = new Date().getTime();
+
+    if(username === ""){
+      return; //do nothing on empty username
+    }
+    
     ChatEngine.connect(
       username,
       {

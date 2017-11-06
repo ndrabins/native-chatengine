@@ -45,7 +45,7 @@ class UserList extends Component {
     let userList = this.state.userList;
 
     return Object.keys(userList).map(uuid => 
-      <TouchableOpacity key={uuid}>
+      <TouchableOpacity key={uuid} onPress={() => this.props.onUserPress(userList[uuid].name)}>
         <View
           key={uuid}
           style={styles.ListItem}

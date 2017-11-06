@@ -52,6 +52,10 @@ export default class DrawerContainer extends React.Component {
     this.props.navigation.navigate('ChatRoom', {title: chat.name});
   }
 
+  onUserPress = (userName) => {
+    this.props.navigation.navigate('ChatRoom', {title: `Chat: ${userName}`});
+  }
+
   render() {
     const chatEngine = this.props.screenProps.chatEngine;
     // console.log(chatEngine);
@@ -61,7 +65,7 @@ export default class DrawerContainer extends React.Component {
         <ChatList chatList={chatList} onChatPress={this.onChatPress} />
         <Text> Direct Messages </Text>
         <View style={{ borderBottomWidth:2,borderBottomColor: "#BDBDBD"}} />
-        <UserList chat={chatEngine.global} />
+        <UserList chat={chatEngine.global} onUserPress={this.onUserPress} />
       </ScrollView>
     )
   }
@@ -72,4 +76,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f6f6f6',
   },
-})
+});
